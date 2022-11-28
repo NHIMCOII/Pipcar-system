@@ -20,7 +20,7 @@ const start = async () => {
   }
 
   app.listen(process.env.PORT, () => {
-    console.log(`PipCar is running at port ${process.env.PORT} !!!`);
+    console.log(`Backend is running at port ${process.env.PORT} !!!`);
   });
 };
 
