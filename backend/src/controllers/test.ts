@@ -15,21 +15,9 @@ const getAllTest = async (req: Request, res: Response) => {
 
 const getTest = async (req: Request, res: Response) => {
   const { input } = req.body;
-  if (input <= 0) {
-    throw new BadRequestError('Input must be positive');
-  } else {
-    const rand = Math.random();
-    const output = input * rand;
-    if (output < 1) {
-      throw new DataNotFoundError();
-    } else {
-      res.send({
-        response_status: 1,
-        message: 'GET TEST DONE',
-        data: { output },
-      });
-    }
-  }
+  let output = 0;
+  output = Math.sqrt(input);
+  res.send(output);
 };
 const postTest = async (req: Request, res: Response) => {
   const { title, content } = req.body;

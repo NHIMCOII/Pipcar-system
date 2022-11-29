@@ -11,6 +11,7 @@ interface TestAttrs {
 // that a Test Model has
 interface TestModel extends mongoose.Model<TestDoc> {
   build(attrs: TestAttrs): TestDoc;
+  duyanh(age: number): string;
 }
 
 //An interface that descirbes the properties that a Test Document has
@@ -53,6 +54,10 @@ testSchema.plugin(updateIfCurrentPlugin);
 
 testSchema.statics.build = (attrs: TestAttrs) => {
   return new Test(attrs);
+};
+testSchema.statics.duyanh = (age: number) => {
+  const message = 'Duy Anh năm nay ' + age + ' tuổi.';
+  return message;
 };
 
 const Test = mongoose.model<TestDoc, TestModel>('Test', testSchema);
