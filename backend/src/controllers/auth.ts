@@ -64,6 +64,8 @@ const getRefreshToken = async (req: Request, res: Response) => {
       message: 'Refresh Token successful.',
     });
   } else {
+    req.session = null;
+    req.currentUser = null;
     throw new BadRequestError('Invalid Refresh Token.');
   }
 };

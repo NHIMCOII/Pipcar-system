@@ -1299,10 +1299,10 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@pippip/pip-system-common@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@pippip/pip-system-common/-/pip-system-common-1.0.14.tgz#89fea4d497689b9f1c3b9677a253c304b0c74ab4"
-  integrity sha512-hI97AZ0ChzM9dyd9nD73dsM/V9e/5WwdVX9VJINIFnDc9nn8WcIDgEDvSFWMJI6JBSDyj6B+ELDTl6Yo6WwgRg==
+"@pippip/pip-system-common@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@pippip/pip-system-common/-/pip-system-common-1.0.15.tgz#3d440c561d7d512096d2b036543c6563258fe83a"
+  integrity sha512-qHl9KIIXlqMOTaytsQGsZqXlIHuGZFamXUAj1UcjC39IYfmMfX03PWw0/AG5mStHVFHfNZAHVXiewSRjUBjnNg==
   dependencies:
     "@types/cookie-session" "^2.0.42"
     "@types/express" "^4.17.12"
