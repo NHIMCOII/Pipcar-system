@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
-import config from 'config'
+import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface UserAttrs {
   phone: string;
@@ -22,7 +21,6 @@ interface UserDoc extends mongoose.Document {
 
 interface UserModel extends mongoose.Model<UserDoc> {
   build(attrs: UserAttrs): UserDoc;
-  duyanh(age: number): string;
 }
 
 const userSchema = new mongoose.Schema(
@@ -43,14 +41,17 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      enum: ["Admin", "Partner Manager", "Analyst"],
+      enum: ['ADMIN', 'PM', 'ANALYST'],
     },
     status: {
       type: Number,
       required: true,
       default: 1,
     },
-    refresh_token: String
+    refresh_token: {
+      type: String,
+      default: 'EMPTY',
+    },
   },
   {
     toJSON: {
@@ -58,22 +59,19 @@ const userSchema = new mongoose.Schema(
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
+        delete ret.password;
       },
     },
   }
 );
 
-userSchema.set("versionKey", "version");
+userSchema.set('versionKey', 'version');
 userSchema.plugin(updateIfCurrentPlugin);
 
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
-userSchema.statics.duyanh = (age: number) => {
-  const message = "Duy Anh năm nay " + age + " tuổi.";
-  return message;
-};
 
-const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 export { User };
