@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { BadRequestError, DataNotFoundError } from '@pippip/pip-system-common';
-import { compare } from 'bcrypt';
+import { Request, Response } from "express";
+import { BadRequestError, DataNotFoundError } from "@pippip/pip-system-common";
+import { compare } from "bcrypt";
 
-import authService from '../services/auth';
-import userService from '../services/user';
+import authService from "../services/auth";
+import userService from "../services/user";
 
 const userLogin = async (req: Request, res: Response) => {
   const { phone, password, role } = req.body;
@@ -14,7 +14,7 @@ const userLogin = async (req: Request, res: Response) => {
 
   const isEqual = await compare(password, check_user.password);
   if (!isEqual) {
-    throw new BadRequestError('Wrong password');
+    throw new BadRequestError("Wrong password");
   }
 
   //Service đăng nhập
@@ -35,9 +35,9 @@ const userLogin = async (req: Request, res: Response) => {
   req.currentUser = user;
 
   //Thành công trả về RT  một lần duy nhất
-  res.status(200).send({
+  res.status(200).json({
     response_status: 1,
-    message: 'Login Successful',
+    message: "Login Successful",
     data: {
       refresh_token,
     },
@@ -47,26 +47,26 @@ const userLogout = async (req: Request, res: Response) => {
   await userService.updateUserRefreshTokenById(req.currentUser!.id);
   req.currentUser = null;
   req.session = null;
-  res.send({
+  res.json({
     response_status: 1,
-    message: 'Logout successful.',
+    message: "Logout successful.",
   });
 };
-const getRefreshToken = async (req: Request, res: Response) => {
+const getAccessToken = async (req: Request, res: Response) => {
   const { refresh_token } = req.body;
-  const access_token = await authService.getRefreshToken(refresh_token);
+  const access_token = await authService.getAccessToken(refresh_token);
   if (access_token) {
     req.session = {
       access_token,
     };
-    res.send({
+    res.json({
       status: 1,
-      message: 'Refresh Token successful.',
+      message: "Refresh Token successful.",
     });
   } else {
     req.session = null;
     req.currentUser = null;
-    throw new BadRequestError('Invalid Refresh Token.');
+    throw new BadRequestError("Invalid Refresh Token.");
   }
 };
-export default { userLogin, userLogout, getRefreshToken };
+export default { userLogin, userLogout, getAccessToken };

@@ -1,7 +1,7 @@
 {
   "default": {
     "password": "12345678",
-    "access_token_exp": 60,
+    "access_token_exp": 3600,
     "refresh_token_exp": 7776000
   },
   "length": {
