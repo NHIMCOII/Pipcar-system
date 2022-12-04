@@ -1,15 +1,14 @@
 {
-    "default": {
-        "password": "12345678",
-        "access_token_exp": 60,
-        "refresh_token_exp": 7776000
-    },
-    "length": {
-        "password": 8
-    },
-    "account_status": {
-        "active": true,
-        "block": false
-    }
-
+  "default": {
+    "password": "12345678",
+    "access_token_exp": 60,
+    "refresh_token_exp": 7776000
+  },
+  "length": {
+    "password": 8
+  },
+  "account_status": {
+    "active": true,
+    "block": false
+  }
 }
