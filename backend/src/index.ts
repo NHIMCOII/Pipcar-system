@@ -10,6 +10,12 @@ const start = async () => {
   if (!process.env.REFRESH_TOKEN_SECRET) {
     throw new Error('REFRESH_TOKEN_SECRET must be defined.');
   }
+  if (!process.env.ACCESS_TOKEN_EXP) {
+    throw new Error('ACCESS_TOKEN_EXP must be defined.');
+  }
+  if (!process.env.REFRESH_TOKEN_EXP) {
+    throw new Error('REFRESH_TOKEN_EXP must be defined.');
+  }
   if (!process.env.MONGO_URI) {
     throw new Error('MONGO_URI must be defined.');
   }
@@ -20,7 +26,7 @@ const start = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('=========== Connected to MongoDB ===========');
   } catch (err) {
-    console.log(err); 
+    console.log(err);
     throw new DatabaseConnectionError();
   }
 

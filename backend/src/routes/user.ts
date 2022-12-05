@@ -1,28 +1,26 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   requireLogin,
   requireRole,
   validateRequest,
-} from "@pippip/pip-system-common";
-import validator from "../middlewares/validator";
-// import canViewProfile from '../middlewares/permission'
+} from '@pippip/pip-system-common';
+import validator from '../middlewares/validator';
 
-import userController from "../controllers/user";
+import userController from '../controllers/user';
 const router = Router();
 
 router.post(
-  "/register",
+  '/register',
   requireLogin,
-  requireRole(["ADMIN"]),
+  requireRole(['ADMIN']),
   validator.userAccount,
   validateRequest,
   userController.register
 );
 router.get(
-  "/info/:userId",
+  '/info/',
   requireLogin,
-  requireRole(["ADMIN", "PM", "ANALYST"]),
-  // canViewProfile,
+  requireRole(['ADMIN', 'PM', 'ANALYST']),
   userController.getUserInfo
 );
 

@@ -1,9 +1,8 @@
-import jwt from "jsonwebtoken";
-import config from "config";
-import dotenv from "dotenv";
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 dotenv.config();
 
-import { User } from "../models/user";
+import { User } from '../models/user';
 
 const signJWT = async ({
   id,
@@ -29,14 +28,14 @@ const signJWT = async ({
     user,
     process.env.ACCESS_TOKEN_SECRET as jwt.Secret,
     {
-      expiresIn: config.get("default.access_token_exp"),
+      expiresIn: parseInt(process.env.ACCESS_TOKEN_EXP!),
     }
   );
   const refresh_token = jwt.sign(
     user,
     process.env.REFRESH_TOKEN_SECRET as jwt.Secret,
     {
-      expiresIn: config.get("default.refresh_token_exp"),
+      expiresIn: parseInt(process.env.REFRESH_TOKEN_EXP!),
     }
   );
 
@@ -63,7 +62,7 @@ const getAccessToken = async (refresh_token: string) => {
       user,
       process.env.ACCESS_TOKEN_SECRET as jwt.Secret,
       {
-        expiresIn: config.get("default.access_token_exp"),
+        expiresIn: parseInt(process.env.ACCESS_TOKEN_EXP!),
       }
     );
     return access_token;

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface UserAttrs {
   phone: string;
@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
-      enum: ["ADMIN", "PM", "ANALYST"],
+      enum: ['ADMIN', 'PM', 'ANALYST'],
     },
     status: {
       type: Number,
@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema(
     },
     refresh_token: {
       type: String,
-      default: "EMPTY",
+      default: 'EMPTY',
     },
   },
   {
@@ -60,18 +60,19 @@ const userSchema = new mongoose.Schema(
         delete ret._id;
         delete ret.__v;
         delete ret.password;
+        delete ret.refresh_token;
       },
     },
   }
 );
 
-userSchema.set("versionKey", "version");
+userSchema.set('versionKey', 'version');
 userSchema.plugin(updateIfCurrentPlugin);
 
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
 
-const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 export { User };
