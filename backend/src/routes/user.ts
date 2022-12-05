@@ -17,11 +17,29 @@ router.post(
   validateRequest,
   userController.register
 );
+
 router.get(
-  '/info/',
+  "/list",
   requireLogin,
-  requireRole(['ADMIN', 'PM', 'ANALYST']),
-  userController.getUserInfo
+  requireRole(["ADMIN"]),
+  userController.getUserList
+);
+
+router.get(
+  "/profile/:userId",
+  requireLogin,
+  requireRole(["ADMIN", "PM", "ANALYST"]),
+  // canViewProfile,
+  userController.getUserProfile
+);
+
+router.put(
+  "/profile/:userId",
+  requireLogin,
+  requireRole(["ADMIN", "PM", "ANALYST"]),
+  validator.userAccount,
+  validateRequest,
+  userController.updateUserProfile
 );
 
 export { router as UserRouter };

@@ -1,6 +1,5 @@
 import { User } from "../models/user";
 import { hashPassword } from "../utils/security";
-import config from "config";
 
 export const UserSeeder = async function () {
   await User.deleteMany()
@@ -14,7 +13,7 @@ export const UserSeeder = async function () {
     {
       phone: "0965670347",
       name: "Trần Hiếu",
-      password: config.get("default.password"),
+      password: '12345678',
       role: "ADMIN",
       status: 1,
     },

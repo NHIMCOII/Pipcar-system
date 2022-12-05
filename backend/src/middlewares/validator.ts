@@ -1,5 +1,6 @@
-import { BadRequestError } from '@pippip/pip-system-common';
-import { body, query } from 'express-validator';
+import { body, query } from "express-validator";
+
+import { BadRequestError } from "@pippip/pip-system-common";
 
 const userAccount = [
   body('phone')
@@ -10,13 +11,14 @@ const userAccount = [
     .withMessage('Invalid phone number'),
   body('name')
     .exists({ checkFalsy: true })
-    .withMessage('Name is required')
-    .isAlpha('vi-VN', { ignore: ' ' })
-    .withMessage('Name must not contains special characters'),
-  body('password')
+    .withMessage("Name is required")
+    .isAlpha("vi-VN", { ignore: " " })
+    .withMessage("Name must not contains special characters"),
+  body("password")
+    .optional({ checkFalsy: true })
     .trim()
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long')
+    .withMessage("Password must be at least 8 characters long")
     .isAlphanumeric()
     .withMessage('Password must not contains special characters'),
   body('role').isIn(['ADMIN', 'PM', 'ANALYST']).withMessage('Invalid role'),
@@ -32,7 +34,7 @@ const loginPassword = [
   body('password')
     .trim()
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long')
+    .withMessage("Password must be at least 8 characters long")
     .isAlphanumeric()
     .withMessage('Password must not contains special characters'),
   body('role').isIn(['ADMIN', 'PM', 'ANALYST']).withMessage('Invalid role'),

@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
-import { app } from './app';
-import { DatabaseConnectionError } from '@pippip/pip-system-common';
+import mongoose from "mongoose";
+import { app } from "./app";
+import { DatabaseConnectionError } from "@pippip/pip-system-common";
 
 const start = async () => {
-  console.log('\nStarting up ...\n');
-  if (!process.env.ACCESS_TOKEN_SECRET) {
-    throw new Error('ACCESS_TOKEN_SECRET must be defined.');
+  console.log("\nStarting up ...\n");
+  if (!process.env.ACCESS_TOKEN_SECRET || !process.env.ACCESS_TOKEN_EXP) {
+    throw new Error("ACCESS_TOKEN must be defined.");
   }
-  if (!process.env.REFRESH_TOKEN_SECRET) {
-    throw new Error('REFRESH_TOKEN_SECRET must be defined.');
+  if (!process.env.REFRESH_TOKEN_SECRET || !process.env.REFRESH_TOKEN_EXP) {
+    throw new Error("REFRESH_TOKEN must be defined.");
   }
   if (!process.env.ACCESS_TOKEN_EXP) {
     throw new Error('ACCESS_TOKEN_EXP must be defined.');
@@ -17,14 +17,14 @@ const start = async () => {
     throw new Error('REFRESH_TOKEN_EXP must be defined.');
   }
   if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined.');
+    throw new Error("MONGO_URI must be defined.");
   }
   if (!process.env.PORT) {
-    throw new Error('PORT must be defined.');
+    throw new Error("PORT must be defined.");
   }
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log('=========== Connected to MongoDB ===========');
+    console.log("=========== Connected to MongoDB ===========");
   } catch (err) {
     console.log(err);
     throw new DatabaseConnectionError();
