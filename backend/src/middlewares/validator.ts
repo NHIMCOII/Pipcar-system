@@ -1,6 +1,7 @@
-import { body, query } from "express-validator";
+import { body, query,param } from "express-validator";
 
 import { BadRequestError } from "@pippip/pip-system-common";
+import { Types } from "mongoose";
 
 const userAccount = [
   body('phone')
@@ -52,4 +53,9 @@ const refreshToken = [
     }),
 ];
 
-export default { userAccount, loginPassword, refreshToken };
+const objectId = [
+  param('id').isMongoId().withMessage('Invalid ObjectId')
+]
+
+
+export default { userAccount, loginPassword, refreshToken,objectId };

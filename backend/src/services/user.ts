@@ -28,22 +28,25 @@ const updateUserRefreshTokenById = async (user_id: string) => {
 };
 
 const getUserList = async () => {
-  const list = await User.find();
+  const list = await User.find({ role: { $ne: "ADMIN" } });
   return list;
 };
 
-const getUserByPhoneRole = async (phone: string, role: string) => {
+const getUserByPhoneRole = async ({
+  phone,
+  role,
+}: {
+  phone: string;
+  role: string;
+}) => {
   const user_info = await User.findOne({ phone, role });
-  if(!user_info){
-    throw new DataNotFoundError()
-  }
   return user_info;
 };
 
 const getUserById = async (user_id: string) => {
   const user_info = await User.findById(user_id);
-  if(!user_info){
-    throw new DataNotFoundError()
+  if (!user_info) {
+    throw new DataNotFoundError();
   }
   return user_info;
 };
@@ -52,22 +55,43 @@ const updateUserProfileById = async ({
   user_id,
   phone,
   name,
-  role,
 }: {
   user_id: string;
   phone: string;
   name: string;
-  role: string;
 }) => {
-  const user = await User.findById(user_id)
-  if(!user){
-    throw new DataNotFoundError()
+  const user = await User.findById(user_id);
+  if (!user) {
+    throw new DataNotFoundError();
   }
   user.phone = phone;
   user.name = name;
-  user.role = role;
-  const updatedUser = await user.save()
+  const updatedUser = await user.save();
   return updatedUser;
+};
+
+const deleteUserById = async (user_id: string) => {
+  await User.findByIdAndDelete(user_id);
+};
+
+const blockUserById = async (user_id: string) => {
+  await User.findByIdAndUpdate(
+    user_id,
+    {
+      status: 2,
+    },
+    { new: true }
+  );
+};
+
+const unblockUserById = async (user_id: string) => {
+  await User.findByIdAndUpdate(
+    user_id,
+    {
+      status: 1,
+    },
+    { new: true }
+  );
 };
 
 export default {
@@ -77,4 +101,7 @@ export default {
   getUserById,
   updateUserRefreshTokenById,
   updateUserProfileById,
+  deleteUserById,
+  blockUserById,
+  unblockUserById,
 };

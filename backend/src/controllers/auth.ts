@@ -7,7 +7,7 @@ import userService from "../services/user";
 
 const userLogin = async (req: Request, res: Response) => {
   const { phone, password, role } = req.body;
-  const check_user = await userService.getUserByPhoneRole(phone, role);
+  const check_user = await userService.getUserByPhoneRole({phone, role});
   if (!check_user) {
     throw new DataNotFoundError();
   }
